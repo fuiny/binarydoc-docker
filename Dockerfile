@@ -9,13 +9,35 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Install Software from Ubuntu repository
 RUN apt update
-RUN apt install -y apache2 memcached
+RUN apt -y upgrade
+RUN apt -y autoremove
+
+RUN apt install -y curl zip unzip nano parallel wget sudo
+
+RUN apt install -y apache2 apachetop
+RUN a2enmod cgi cgid expires info proxy_http ssl
+
+RUN apt install -y memcached
 RUN apt install -y php libapache2-mod-php php-cli php-cgi php-mysql php-intl php-zip php-bcmath php-apcu php-memcached 
-RUN apt install -y graphviz inkscape libcanberra-gtk-module
+
 RUN apt install -y default-jdk plantuml
+RUN apt install -y fonts-freefont-otf fonts-freefont-ttf ttf-aenigma ttf-summersby
+RUN apt install -y fonts-arphic-ukai fonts-arphic-uming fonts-ipafont-mincho fonts-ipafont-gothic fonts-unfonts-core
+
+RUN apt install -y graphviz librsvg2-bin inkscape libcanberra-gtk-module
+
 RUN apt update
 RUN apt -y upgrade
 RUN apt -y autoremove
+
+# Install BinaryDoc Parser
+RUN mkdir -p /opt/fuiny/binarydoc-parser
+RUN cd       /opt/fuiny/binarydoc-parser && rm -rf * && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-parser.zip && unzip binarydoc-parser.zip
+
+# Install BinaryDoc WebSite
+RUN cd /var/www && sudo rm -rf php-library/ && sudo rm -f website-php-library.zip         && sudo wget http://repos.fuiny.net/dist/binarydoc/website-php-library.zip         && sudo unzip website-php-library.zip
+RUN cd /var/www && sudo rm -rf html/        && sudo rm -f website-org.binarydoc.repos.zip && sudo wget http://repos.fuiny.net/dist/binarydoc/website-org.binarydoc.repos.zip && sudo unzip website-org.binarydoc.repos.zip && sudo mv org.binarydoc.repos html
+
 
 COPY docker-entrypoint.sh /
 
