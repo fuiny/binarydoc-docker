@@ -5,7 +5,7 @@ set -e
 #  - https://stackoverflow.com/questions/42232310/pass-password-to-mysql-config-editor-using-variable-in-shell
 host=binarydoc-db
 user=root
-pass=123456
+pass=$MYSQL_ROOT_PASSWORD
 
 rm -f ~/.mylogin.cnf
 
