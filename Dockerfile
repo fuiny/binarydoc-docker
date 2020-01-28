@@ -17,9 +17,11 @@ RUN apt install -y mysql-client
 
 RUN apt install -y apache2 apachetop
 RUN a2enmod cgi cgid expires info proxy_http ssl
+COPY etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 RUN apt install -y memcached
 RUN apt install -y php libapache2-mod-php php-cli php-cgi php-mysql php-intl php-zip php-bcmath php-apcu php-memcached 
+# TODO SET THE php.ini ?
 
 RUN apt install -y default-jdk maven plantuml
 RUN apt install -y fonts-freefont-otf fonts-freefont-ttf ttf-aenigma ttf-summersby
@@ -36,13 +38,14 @@ RUN mkdir -p /opt/fuiny/binarydoc-parser
 RUN cd       /opt/fuiny/binarydoc-parser && rm -rf * && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-parser.zip && unzip binarydoc-parser.zip
 
 RUN mkdir -p /opt/fuiny/binarydoc-db
-RUN cd       /opt/fuiny/binarydoc-db && rm -rf * && wget http://repos.fuiny.net/dist/binarydoc/binarydocjvmadm-create.sql && wget http://repos.fuiny.net/dist/binarydoc/create-users.sql
+RUN cd       /opt/fuiny/binarydoc-db     && rm -rf * && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-db.zip     && unzip binarydoc-db.zip
 
+RUN mkdir -p /opt/fuiny/demo-tgav
 
 # Install BinaryDoc WebSite
 RUN cd /var/www && sudo rm -rf php-library/ && sudo rm -f website-php-library.zip         && sudo wget http://repos.fuiny.net/dist/binarydoc/website-php-library.zip         && sudo unzip website-php-library.zip
 RUN cd /var/www && sudo rm -rf html/        && sudo rm -f website-org.binarydoc.repos.zip && sudo wget http://repos.fuiny.net/dist/binarydoc/website-org.binarydoc.repos.zip && sudo unzip website-org.binarydoc.repos.zip && sudo mv org.binarydoc.repos html
-
+RUN chmod -R 777 /var/www/html/api/cache
 
 COPY docker-entrypoint.sh /
 
