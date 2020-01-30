@@ -21,7 +21,6 @@ COPY etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/0
 
 RUN apt install -y memcached
 RUN apt install -y php libapache2-mod-php php-cli php-cgi php-mysql php-intl php-zip php-bcmath php-apcu php-memcached 
-# TODO SET THE php.ini ?
 
 RUN apt install -y default-jdk maven plantuml
 RUN apt install -y fonts-freefont-otf fonts-freefont-ttf ttf-aenigma ttf-summersby

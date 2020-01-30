@@ -43,6 +43,12 @@ sed -i "s/127.0.0.1/binarydoc-db/g" /opt/fuiny/binarydoc-parser/etc/binarydoc-jv
 sed -i "s/localhost/binarydoc-db/g" /opt/fuiny/binarydoc-parser/etc/binarydoc-jvm.properties
 sed -i "s/127.0.0.1/binarydoc-db/g" /var/www/php-library/config/dbconfig.php
 
+echo ""
+echo "`date` Database is ready at localhost:$MYSQL_PORT "
+echo "`date` Database is availabe at http://127.0.0.1:$ADMINER_PORT/ "
+echo "`date` BinaryDoc will be availabe at http://127.0.0.1:$BINARYDOC_PORT/ "
+echo ""
+
 echo "`date` Starting Apache2 HTTPD in foreground."
 source /etc/apache2/envvars
 exec /usr/sbin/apache2 -D FOREGROUND
