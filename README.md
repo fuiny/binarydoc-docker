@@ -38,4 +38,4 @@ Support
 - [Report Issues in Github](https://github.com/fuiny/binarydoc-dockerfile/issues)
 
 License
-- This docker image can be used for `FREE` forever
+- [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
