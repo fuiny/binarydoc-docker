@@ -1,0 +1,73 @@
+version: '3'
+
+networks:
+  fuinynet: 
+    driver: bridge
+
+services:
+
+  # BinaryDoc Database
+  binarydoc-db:
+    # The MySQL version is aligned with the corresponding Ubuntu LTS
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    hostname: binarydoc-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      # Password for root access, subjected to change on your requirement
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+    volumes:
+      # Where our data will be persisted
+      - ./mysql-conf:/etc/mysql/conf.d
+      - ./mysql-data:/var/lib/mysql
+    expose:
+      # Opens port 3306 on the container inside the docker network
+      - '3306'
+    ports:
+      # Map docker MySQL port to hosting machine
+      - ${MYSQL_PORT}:3306
+    networks:
+      - fuinynet
+
+  # Database Admin Tool
+  adminer:
+    image: adminer
+    hostname: adminer
+    restart: always
+    environment:
+      # Hostname of the DB Image
+      ADMINER_DEFAULT_SERVER: 'binarydoc-db'
+    depends_on:
+      - binarydoc-db
+    ports:
+      - ${ADMINER_PORT}:8080
+    networks:
+      - fuinynet
+
+  # BinaryDoc Parser and WebSite
+  binarydoc:
+    image: fuiny/binarydoc:latest
+    hostname: binarydoc
+    restart: always
+    environment:
+      # We need the password for DB in our application
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      # We need the ports for Messages
+      ADMINER_PORT: "${ADMINER_PORT}"
+      BINARYDOC_PORT: "${BINARYDOC_PORT}"
+      MYSQL_PORT: "${MYSQL_PORT}"
+    depends_on:
+      - binarydoc-db
+    volumes:
+      # Where the demo artifact could be placed
+      - ./demo-files:/opt/fuiny/demo-tgav
+    ports:
+      - ${BINARYDOC_PORT}:80
+    networks:
+      - fuinynet
+
+# Names of MySQL DB volume
+volumes:
+  mysql-data:
+
