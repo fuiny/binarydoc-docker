@@ -2,7 +2,7 @@
 
 `BinaryDoc` generates Documents with rich diagrams from Binary files directly for Java.
 
-This docker image needs to work together with `mysql` database with specified [mysql.cnf](https://github.com/fuiny/binarydoc-docker/blob/master/mysql-conf/mysql.cnf) configurations. An sample [docker-compose.yml](https://github.com/fuiny/binarydoc-docker/blob/master/docker-compose.yml "Pre-configured BinaryDoc Docker Compose file") file has been provided.
+This docker image needs to work together with `mysql` database with specified [mysql.cnf](https://github.com/fuiny/binarydoc-docker/blob/master/etc/mysql/conf.d/mysql.cnf) configurations. An sample [docker-compose.yml](https://github.com/fuiny/binarydoc-docker/blob/master/docker-compose.yml "Pre-configured BinaryDoc Docker Compose file") file has been provided.
 
 
 Sample Diagrams in Generated documents:
@@ -62,7 +62,7 @@ Customize the config files
 - [.env](https://github.com/fuiny/binarydoc-docker/blob/master/.env)
   - Change the DB password (default=`123456`) when needed
   - Change the TCP ports when needed
-- [mysql.cnf](https://github.com/fuiny/binarydoc-docker/blob/master/mysql-conf/mysql.cnf)
+- [mysql.cnf](https://github.com/fuiny/binarydoc-docker/blob/master/etc/mysql/conf.d/mysql.cnf)
   - Change the settings based on current hardware RAM size, following the guide inside the `mysql.cnf` file
 
 Start the Docker Instances
