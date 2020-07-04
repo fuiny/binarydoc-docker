@@ -19,7 +19,7 @@ services:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     volumes:
       # Where our data will be persisted
-      - ./mysql-conf:/etc/mysql/conf.d
+      - ./etc/mysql/conf.d:/etc/mysql/conf.d
       - ./mysql-data:/var/lib/mysql
     expose:
       # Opens port 3306 on the container inside the docker network
