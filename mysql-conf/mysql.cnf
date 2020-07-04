@@ -21,6 +21,9 @@ bulk_insert_buffer_size = 128M
 max_heap_table_size     = 5G
 tmp_table_size          = 5G
 
+# Defines the maximum amount of memory that can be occupied by the TempTable storage engine before it starts storing data on disk
+temptable_max_ram       = 5G
+
 # Job Server need a big sort_buffer_size, we can set it as big as possible
 # https://dba.stackexchange.com/questions/10732/adding-an-index-very-slow-is-there-a-mysql-cmd-to-get-an-eta-or-show-progress
 sort_buffer_size        = 512M
@@ -37,14 +40,18 @@ disable-log-bin
 # * InnoDB
 #
 
-# 64 is the current biggest value for innodb_buffer_pool_instances
-# 64 is the current biggest value for innodb_read_io_threads
-
-# Buffer Pool Size
-#    16 GB RAM System = 10G / 10
-#    32 GB RAM System = 20G / 20
-#    64 GB RAM System = 40G / 40
-#   128 GB RAM System = 80G / 64
+# Buffer Pool Settings based on OS RAM Size
+#   OS RAM :  innodb_buffer_pool_size / innodb_buffer_pool_instances
+#
+#    16 GB                        10G / 10
+#    32 GB                        20G / 20
+#    64 GB                        40G / 40
+#   128 GB                        80G / 64
+#
+# Notes:
+#   innodb_buffer_pool_instances max value is 64
+#   innodb_read_io_threads       max value is 64
+#
 
 innodb_buffer_pool_size         = 10G
 innodb_buffer_pool_instances    = 10
@@ -56,6 +63,9 @@ innodb_log_file_size            = 512M
 innodb_log_files_in_group       = 4
 innodb_read_io_threads          = 64
 innodb_write_io_threads         = 32
+
+# Optionally disabling the doublewrite buffer if more concerned with performance than data integrity
+#innodb_doublewrite             = 0
 
 
 #
