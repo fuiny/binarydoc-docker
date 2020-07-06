@@ -1,7 +1,5 @@
 [mysqld]
 
-character-set-server   = utf8mb4
-collation-server       = utf8mb4_bin
 default-time-zone      = '+00:00'
 skip-name-resolve
 
@@ -22,6 +20,7 @@ max_heap_table_size     = 5G
 tmp_table_size          = 5G
 
 # Defines the maximum amount of memory that can be occupied by the TempTable storage engine before it starts storing data on disk
+#  - Mariadb do not have this option yet
 temptable_max_ram       = 5G
 
 # Job Server need a big sort_buffer_size, we can set it as big as possible
@@ -34,7 +33,20 @@ max_connections         = 600
 slow_query_log          = 1
 long_query_time         = 2
 disable-log-bin
+log_queries_not_using_indexes = 1
 
+
+# Mariadb only - enable this one
+#log-queries-not-using-indexes
+#log_slow_verbosity     = query_plan
+
+
+#
+# * Character sets
+#
+
+character-set-server   = utf8mb4
+collation-server       = utf8mb4_bin
 
 #
 # * InnoDB
@@ -66,7 +78,7 @@ innodb_read_io_threads          = 64
 innodb_write_io_threads         = 32
 
 # Optionally disabling the doublewrite buffer if more concerned with performance than data integrity
-#innodb_doublewrite             = 0
+innodb_doublewrite              = 0
 
 
 #
