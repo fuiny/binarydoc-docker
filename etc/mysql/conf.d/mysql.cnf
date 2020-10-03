@@ -88,6 +88,9 @@ innodb_doublewrite              = 0
 # https://stackoverflow.com/questions/26015160/
 log_bin_trust_function_creators = 1
 
+# https://dev.mysql.com/doc/refman/8.0/en/load-data-local-security.html
+local_infile = 1
+
 # 50 MB limit
 group_concat_max_len = 52428800
 
