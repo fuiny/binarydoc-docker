@@ -40,7 +40,7 @@ This is an sample docker compose setup for `BinaryDoc`, which generates Document
 
 Warning
 - This docker compose setup is designed for none-production environment, better for evaluation and testing box
-- It is using unsecure setup
+- It is using unsecure password by default
 - It has limited performance
 
 ## Hardware Requirement
@@ -54,7 +54,7 @@ Well for the non-mission-critical environments here we lists the suggested minim
 - Disk type: `SSD` Drive is suggested, `M.2 SSD` or `NVMe SSD` are preferred
 - Disk size: `20 GB` or more avialbe disk space is suggested
   - The size is based on the binary data to be parsed.
-  - Example: OpenJDK 11 binary data size is `387.9 MB`, and the current corresponding DB size is `12 GB`.
+  - Example: OpenJDK 11 binary data size is `387.9 MB`, and the current corresponding DB size is `7 GB`.
 
 ## Steps
 
@@ -66,16 +66,19 @@ Customize the config files
   - Change the settings based on current hardware RAM size, following the guide inside the `mysql.cnf` file
 
 Start the Docker Instances
-- `sudo docker-compose up`
+- `sudo docker-compose up -d`
 
-Put your Java Application to be Parsed to the following folder
-- `demo-files`
-  - Example: Copy the java `.jmod` or `.jar` files of the application to this folder
+Run the Parser for current OpenJDK for demo:
+- `sudo docker exec -it binarydoc-docker_binarydoc_1 /opt/fuiny/binarydoc-parser/bin/run.sh 1`
+  - Where `binarydoc-docker_binarydoc_1` is the default docker container name generated
+  - The container name could be different form time to time, we can use the `sudo docker ps -a` command to check the actual generated name
+  - Note. the parser execution takes about `1 hour` on `M.2 SSD` disk, and needs up to `24 GB` RAM
 
-Run the Parser
-- `sudo docker exec -it binarydocdocker_binarydoc_1 /opt/fuiny/binarydoc-parser/bin/run.sh 1`
-  - Where `binarydocdocker_binarydoc_1` is the default docker container name generated
-  - We can use the `sudo docker ps -a` command to check the docker container name actually generated in current system
+Run the Parser for your application:
+- Put your Java Application to be Parsed to the `app-to-parse` folder
+  - Example: Copy the application `.jmod` or `.jar` files to this folder
+- Start the parser
+  - `sudo docker exec -it binarydoc-docker_binarydoc_1 /opt/fuiny/binarydoc-parser/bin/run.sh 2`
 
 Access the Web Site
 - http://127.0.0.1:10180/
@@ -97,7 +100,7 @@ When we want to Delete Existing Docker Instances, and to Start over again
 - `sudo docker-compose down --rmi all && sudo rm -rf mysql-data/`
 
 When we want login to the Running Docker container
-- `sudo docker exec -it binarydocdocker_binarydoc_1 /bin/bash`
+- `sudo docker exec -it binarydoc-docker_binarydoc_1 /bin/bash`
 
 TCP Ports Mapping
 - We may change the ports `10180`, `10190`, `13306` in `docker-compose.yml` when necessary
