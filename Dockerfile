@@ -20,7 +20,7 @@ RUN apt update && apt -y upgrade && apt -y autoremove && apt install -y \
 # Install BinaryDoc Parser
 RUN mkdir -p /opt/fuiny/binarydoc-parser && cd /opt/fuiny/binarydoc-parser && rm -rf * && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-parser.zip && unzip binarydoc-parser.zip
 RUN mkdir -p /opt/fuiny/binarydoc-db     && cd /opt/fuiny/binarydoc-db     && rm -rf * && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-db.zip     && unzip binarydoc-db.zip
-RUN mkdir -p /opt/fuiny/demo-tgav
+RUN mkdir -p /opt/fuiny/app-to-parse
 
 # Install BinaryDoc WebSite
 RUN cd /var/www && sudo rm -rf php-library/ && sudo rm -f website-php-library.zip         && sudo wget http://repos.fuiny.net/dist/binarydoc/website-php-library.zip         && sudo unzip -q website-php-library.zip

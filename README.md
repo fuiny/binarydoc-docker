@@ -97,13 +97,13 @@ Access the Web Site
 ## Other commands
 
 When we want to Delete Existing Docker Instances, and to Start over again
-- `sudo docker-compose down --rmi all && sudo rm -rf mysql-data/`
+- `sudo docker-compose down --rmi all && sudo rm -rf mysql-data/ apache2-log/`
 
 When we want login to the Running Docker container
 - `sudo docker exec -it binarydoc-docker_binarydoc_1 /bin/bash`
 
 TCP Ports Mapping
-- We may change the ports `10180`, `10190`, `13306` in `docker-compose.yml` when necessary
+- We may change the ports `10180`, `10190`, `13306` in [.env](https://github.com/fuiny/binarydoc-docker/blob/master/.env) when necessary
 
 
 # Community

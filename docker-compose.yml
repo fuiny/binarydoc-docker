@@ -61,7 +61,7 @@ services:
       - binarydoc-db
     volumes:
       # Where the application to parse could copy to
-      - ./app-to-parse:/opt/fuiny/demo-tgav
+      - ./app-to-parse:/opt/fuiny/app-to-parse
       # Expose Apache server logs
       - ./apache2-log:/var/log/apache2
     ports:
