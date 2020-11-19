@@ -15,11 +15,11 @@ Sample Diagrams in Generated documents:
 
 - `UML Hierarchy Diagram` for Java Class
 [![UML Hierarchy Diagram for class java.nio.channels.FileChannel](https://github.com/fuiny/binarydoc-help/raw/master/samples/uml_java_java.nio.channels.FileChannel_hierarchy.png)](https://github.com/fuiny/binarydoc-help/blob/master/samples/uml_java_java.nio.channels.FileChannel_hierarchy.pdf)
-[![UML Hierarchy Diagram for class java.lang.Class](https://github.com/fuiny/binarydoc-help/raw/master/samples/uml_java_java.lang.Class_hierarchy.pdf)](https://github.com/fuiny/binarydoc-help/raw/master/samples/uml_java_java.lang.Class_hierarchy.pdf)
-[![UML Hierarchy Diagram for class javax.swing.JTable](https://github.com/fuiny/binarydoc-help/raw/master/samples/uml_java_javax.swing.JTable_hierarchy.pdf)](https://github.com/fuiny/binarydoc-help/raw/master/samples/uml_java_javax.swing.JTable_hierarchy.pdf)
+[![UML Hierarchy Diagram for class java.lang.Class](https://github.com/fuiny/binarydoc-help/raw/master/samples/uml_java_java.lang.Class_hierarchy.png)](https://github.com/fuiny/binarydoc-help/raw/master/samples/uml_java_java.lang.Class_hierarchy.pdf)
+[![UML Hierarchy Diagram for class javax.swing.JTable](https://github.com/fuiny/binarydoc-help/raw/master/samples/uml_java_javax.swing.JTable_hierarchy.png)](https://github.com/fuiny/binarydoc-help/raw/master/samples/uml_java_javax.swing.JTable_hierarchy.pdf)
 
 - `Dependency Network` diagram for Java package
-[![Dependency Network Diagram for package java.beans](https://github.com/fuiny/binarydoc-help/raw/master/samples/dn_java_package_java.beans.pdf)](https://github.com/fuiny/binarydoc-help/raw/master/samples/dn_java_package_java.beans.pdf)
+[![Dependency Network Diagram for package java.beans](https://github.com/fuiny/binarydoc-help/raw/master/samples/dn_java_package_java.beans.png)](https://github.com/fuiny/binarydoc-help/raw/master/samples/dn_java_package_java.beans.pdf)
 
 - `Jar,Jmod` files Dependency Network Diagram (`sfdp` layout)
 [![Dependency Network Diagram for OpenJDK 13](https://github.com/fuiny/binarydoc-help/raw/master/samples/dn_files_gav_openjdk-net.java-openjdk-13.0_sfdp.png)](https://github.com/fuiny/binarydoc-help/blob/master/samples/dn_files_gav_openjdk-net.java-openjdk-13.0_sfdp.pdf)
