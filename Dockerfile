@@ -11,7 +11,7 @@ RUN apt update && apt -y upgrade && apt -y autoremove && apt install -y \
     mysql-client \
     apache2 apachetop \
     memcached \
-    php libapache2-mod-php php-cli php-cgi php-mysql php-intl php-zip php-bcmath php-apcu php-memcached \
+    php libapache2-mod-php php-cli php-cgi php-mbstring php-mysql php-intl php-zip php-bcmath php-apcu php-memcached \
     default-jdk maven plantuml \
     fonts-freefont-otf fonts-freefont-ttf ttf-aenigma ttf-summersby \
     fonts-arphic-ukai fonts-arphic-uming fonts-ipafont-mincho fonts-ipafont-gothic fonts-unfonts-core \

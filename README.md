@@ -7,14 +7,19 @@ This docker image needs to work together with `mysql` database with specified [m
 
 Sample Diagrams in Generated documents:
 
-- Control Flow Graph for Java method bytecode
+- `Control Flow Graph` for Java method bytecode
 [![Control Flow Graph for method java.net.Inet6Address.getByAddress](https://github.com/fuiny/binarydoc-help/raw/master/samples/cfg_java_method_java.net.Inet6Address_getByAddress.png)](https://github.com/fuiny/binarydoc-help/blob/master/samples/cfg_java_method_java.net.Inet6Address_getByAddress.pdf)
 
-- UML Sequence Diagram for Java method bytecode
+- `UML Sequence Diagram` for Java method bytecode
 [![UML Sequence Diagram for method java.net.Inet6Address.getByAddress](https://github.com/fuiny/binarydoc-help/raw/master/samples/uml_sequence_java_method_java.net.Inet6Address_getByAddress.png)](https://github.com/fuiny/binarydoc-help/blob/master/samples/uml_sequence_java_method_java.net.Inet6Address_getByAddress.pdf)
 
-- UML Hierarchy Diagram for Java Class
+- `UML Hierarchy Diagram` for Java Class
 [![UML Hierarchy Diagram for class java.nio.channels.FileChannel](https://github.com/fuiny/binarydoc-help/raw/master/samples/uml_java_java.nio.channels.FileChannel_hierarchy.png)](https://github.com/fuiny/binarydoc-help/blob/master/samples/uml_java_java.nio.channels.FileChannel_hierarchy.pdf)
+[![UML Hierarchy Diagram for class java.lang.Class](https://github.com/fuiny/binarydoc-help/raw/master/samples/uml_java_java.lang.Class_hierarchy.pdf)](https://github.com/fuiny/binarydoc-help/raw/master/samples/uml_java_java.lang.Class_hierarchy.pdf)
+[![UML Hierarchy Diagram for class javax.swing.JTable](https://github.com/fuiny/binarydoc-help/raw/master/samples/uml_java_javax.swing.JTable_hierarchy.pdf)](https://github.com/fuiny/binarydoc-help/raw/master/samples/uml_java_javax.swing.JTable_hierarchy.pdf)
+
+- `Dependency Network` diagram for Java package
+[![Dependency Network Diagram for package java.beans](https://github.com/fuiny/binarydoc-help/raw/master/samples/dn_java_package_java.beans.pdf)](https://github.com/fuiny/binarydoc-help/raw/master/samples/dn_java_package_java.beans.pdf)
 
 - `Jar,Jmod` files Dependency Network Diagram (`sfdp` layout)
 [![Dependency Network Diagram for OpenJDK 13](https://github.com/fuiny/binarydoc-help/raw/master/samples/dn_files_gav_openjdk-net.java-openjdk-13.0_sfdp.png)](https://github.com/fuiny/binarydoc-help/blob/master/samples/dn_files_gav_openjdk-net.java-openjdk-13.0_sfdp.pdf)
@@ -88,7 +93,7 @@ Access the Web Site
   - System: `MySQL`
   - Server: `binarydoc-db`
   - Username: `root`
-  - Password: `123456`, or the password set in the `.env` file
+  - Password: `123456`, or the password set in the [.env](https://github.com/fuiny/binarydoc-docker/blob/master/.env) file
   - Database: `binarydocjvmadm`
 - MySQL Workbench, or Other DB Access Tools
   - Server: `localhost`
