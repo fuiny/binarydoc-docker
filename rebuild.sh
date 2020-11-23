@@ -5,8 +5,7 @@
 
 
 # Clean up
-sudo docker-compose down --rmi all 
-sudo rm -rf mysql-data/ apache2-log/
+./cleanup.sh
 
 # Build
 ./build.sh

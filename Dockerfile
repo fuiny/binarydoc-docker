@@ -18,8 +18,8 @@ RUN apt update && apt -y upgrade && apt -y autoremove && apt install -y \
     graphviz librsvg2-bin inkscape libcanberra-gtk-module
 
 # Install BinaryDoc Parser
-RUN mkdir -p /opt/fuiny/binarydoc-parser && cd /opt/fuiny/binarydoc-parser && rm -rf * && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-parser.zip && unzip binarydoc-parser.zip
 RUN mkdir -p /opt/fuiny/binarydoc-db     && cd /opt/fuiny/binarydoc-db     && rm -rf * && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-db.zip     && unzip binarydoc-db.zip
+RUN mkdir -p /opt/fuiny/binarydoc-parser && cd /opt/fuiny/binarydoc-parser && rm -rf * && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-parser.zip && unzip binarydoc-parser.zip
 RUN mkdir -p /opt/fuiny/app-to-parse
 
 # Install BinaryDoc WebSite
@@ -27,10 +27,13 @@ RUN cd /var/www && sudo rm -rf php-library/ && sudo rm -f website-php-library.zi
 RUN cd /var/www && sudo rm -rf html/        && sudo rm -f website-org.binarydoc.repos.zip && sudo wget http://repos.fuiny.net/dist/binarydoc/website-org.binarydoc.www.zip   && sudo unzip -q website-org.binarydoc.www.zip  && sudo mv org.binarydoc.www html
 RUN chmod -R 777 /var/www/html/api/cache
 
-# Setup Apache
+# Setup Web Server
 RUN a2enmod cgi cgid expires info proxy_http ssl
 COPY etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY docker-entrypoint.sh /
+COPY etc/php/apache2/conf.d/fuiny-php.ini         /etc/php/7.4/apache2/conf.d/
+COPY var/www/html/apc.php                         /var/www/html/
+COPY var/www/html/phpinfo.php                     /var/www/html/
+COPY docker-entrypoint.sh                         /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["apache2"]
