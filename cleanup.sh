@@ -5,5 +5,5 @@
 
 
 sudo docker-compose down --rmi all 
-sudo rm -rf mysql-data/ apache2-log/
+sudo rm -rf mysql-data/ apache2-log/ web-sitemap/
 echo "$0 Finished"

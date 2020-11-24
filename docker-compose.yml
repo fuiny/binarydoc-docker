@@ -64,6 +64,8 @@ services:
       - ./app-to-parse:/opt/fuiny/app-to-parse
       # Expose Apache server logs
       - ./apache2-log:/var/log/apache2
+      # Web - Sitemap
+      - ./web-sitemap:/var/www/html/sitemap/data
     ports:
       - ${BINARYDOC_PORT}:80
     networks:
