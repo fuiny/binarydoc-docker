@@ -73,16 +73,14 @@ Start the Docker Instances
 - `sudo docker-compose up -d`
 
 Run the Parser for current OpenJDK for demo:
-- `sudo docker exec -it binarydoc-docker_binarydoc_1 /opt/fuiny/binarydoc-parser/bin/run.sh 1`
-  - Where `binarydoc-docker_binarydoc_1` is the default docker container name generated
-  - The container name could be different form time to time, we can use the `sudo docker ps -a` command to check the actual generated name
+- `sudo docker-compose exec binarydoc /opt/fuiny/binarydoc-parser/bin/run.sh 1`
   - Note. the parser execution takes about `1 hour` on `M.2 SSD` disk, and needs up to `24 GB` RAM
 
 Run the Parser for your application:
 - Put your Java Application to be Parsed to the `app-to-parse` folder
   - Example: Copy the application `.jmod` or `.jar` files to this folder
 - Start the parser
-  - `sudo docker exec -it binarydoc-docker_binarydoc_1 /opt/fuiny/binarydoc-parser/bin/run.sh 2`
+  - `sudo docker-compose exec binarydoc /opt/fuiny/binarydoc-parser/bin/run.sh 2`
 
 Access the Web Site
 - http://127.0.0.1:10180/
