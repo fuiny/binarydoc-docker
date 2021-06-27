@@ -35,7 +35,7 @@ echo "`date` Create DB Schema for Admin if not exists"
 mysql --login-path=binarydocjvmadm  <  /opt/fuiny/binarydoc-db/binarydocjvmadm/create.sql
 
 echo "`date` Prepare Artifact Setup"
-mysql --login-path=binarydocjvmadm  <  /opt/fuiny/binarydoc-db/binarydocjvmadm/data-express-version.sql
+mysql --login-path=binarydocjvmadm --database="binarydocjvmadm"  <  /opt/fuiny/binarydoc-db/binarydocjvmadm/data-express-version.sql
 
 # Update configuration
 echo "`date` Update configuration"
