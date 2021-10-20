@@ -45,7 +45,8 @@ This is an sample docker compose setup for `BinaryDoc`, which generates Document
 
 Warning
 - This docker compose setup is designed for none-production environment, better for evaluation or testing box
-- It is using unsecure password by default
+- Password is set in [.env](https://github.com/fuiny/binarydoc-docker/blob/master/.env), while `password vault` could be used in production
+- Default RAM in [mysql.cnf](https://github.com/fuiny/binarydoc-docker/blob/master/etc/mysql/conf.d/mysql.cnf) is small, while `128 GB` or more RAM is available in production
 
 ## Hardware Requirement
 
@@ -67,20 +68,21 @@ Customize the config files
   - Change the DB password (default=`123456`) when needed
   - Change the TCP ports when needed
 - [mysql.cnf](https://github.com/fuiny/binarydoc-docker/blob/master/etc/mysql/conf.d/mysql.cnf)
-  - Change the settings based on current hardware RAM size, following the guide inside the `mysql.cnf` file
+  - Change `innodb_buffer_pool_size` based on avabile RAM hardware and the size of application to be parsed
+  - Change `innodb_buffer_pool_instances` based on parallel workloads
 
 Start the Docker Instances
-- `sudo docker-compose up -d`
+- `docker-compose up -d`
 
 Run the Parser for current OpenJDK for demo:
-- `sudo docker-compose exec binarydoc /opt/fuiny/binarydoc-parser/bin/run.sh 1`
+- [`./run-parse-demo.sh`](https://github.com/fuiny/binarydoc-docker/blob/master/run-parse-demo.sh)
   - Note. the parser execution takes about `1 hour` on `M.2 SSD` disk, and needs up to `24 GB` RAM
 
 Run the Parser for your application:
 - Put your Java Application to be Parsed to the `app-to-parse` folder
   - Example: Copy the application `.jmod` or `.jar` files to this folder
 - Start the parser
-  - `sudo docker-compose exec binarydoc /opt/fuiny/binarydoc-parser/bin/run.sh 2`
+  - [`./run-parse-app.sh`](https://github.com/fuiny/binarydoc-docker/blob/master/run-parse-app.sh)
 
 Access the Web Site
 - http://127.0.0.1:10180/
@@ -99,10 +101,10 @@ Access the Web Site
 ## Other commands
 
 When we want to Delete Existing Docker Instances, and to Start over again
-- `sudo docker-compose down --rmi all && sudo rm -rf mysql-data/ apache2-log/`
+- [`./rebuild.sh`](https://github.com/fuiny/binarydoc-docker/blob/master/rebuild.sh)
 
 When we want login to the Running Docker container
-- `sudo docker exec -it binarydoc-docker_binarydoc_1 /bin/bash`
+- `sudo docker-compose exec binarydoc /bin/bash`
 
 TCP Ports Mapping
 - We may change the ports `10180`, `10190`, `13306` in [.env](https://github.com/fuiny/binarydoc-docker/blob/master/.env) when necessary
@@ -112,3 +114,4 @@ TCP Ports Mapping
 
 - Support: [Report Issues in Github](https://github.com/fuiny/binarydoc-docker/issues)
 - License: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+

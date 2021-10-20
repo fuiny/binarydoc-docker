@@ -30,6 +30,36 @@ services:
     networks:
       - fuinynet
 
+  # Minio File Server
+  minio:
+    image: minio/minio:latest
+    hostname: minio
+    restart: always
+    environment:
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=${MINIO_PASSWORD}
+    volumes:
+      - ./minio-data:/data
+    command: server /data
+    expose:
+      - '9000'
+    ports:
+      - ${MINIO_PORT}:9000
+    networks:
+      - fuinynet
+
+  # PlantUML Server
+  plantuml:
+    image: plantuml/plantuml-server:tomcat
+    hostname: plantuml
+    restart: always
+    expose:
+      - '8080'
+    ports:
+      - ${PLANTUML_PORT}:8080
+    networks:
+      - fuinynet
+
   # Database Admin Tool
   adminer:
     image: adminer
@@ -51,21 +81,24 @@ services:
     hostname: binarydoc
     restart: always
     environment:
-      # We need the password for DB in our application
+      # We need passwords in our application
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MINIO_PASSWORD:  "${MINIO_PASSWORD}"
       # We need the ports for Messages
       ADMINER_PORT: "${ADMINER_PORT}"
       BINARYDOC_PORT: "${BINARYDOC_PORT}"
+      MINIO_PORT: "${MINIO_PORT}"
       MYSQL_PORT: "${MYSQL_PORT}"
+      PLANTUML_PORT: "${PLANTUML_PORT}"
     depends_on:
       - binarydoc-db
+      - minio
+      - plantuml
     volumes:
       # Where the application to parse could copy to
       - ./app-to-parse:/opt/fuiny/app-to-parse
       # Expose Apache server logs
       - ./apache2-log:/var/log/apache2
-      # Web - Sitemap
-      - ./web-sitemap:/var/www/html/sitemap/data
     ports:
       - ${BINARYDOC_PORT}:80
     networks:
@@ -73,6 +106,8 @@ services:
 
 # Names of MySQL DB volume
 volumes:
-  mysql-data:
   apache2-log:
   app-to-parse:
+  minio-data:
+  mysql-data:
+

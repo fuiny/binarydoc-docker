@@ -4,6 +4,8 @@
 # Note. All local data will be removed and cannot be recovered
 
 
-sudo docker-compose down --rmi all 
-sudo rm -rf mysql-data/ apache2-log/ web-sitemap/
+sudo docker-compose down --rmi local 
+sudo docker image rm fuiny/binarydoc
+sudo rm -rf apache2-log/ minio-data/ mysql-data/ web-sitemap/
 echo "$0 Finished"
+

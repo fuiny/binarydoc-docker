@@ -1,22 +1,26 @@
 #!/bin/bash
 set -e
 
+miniopass=$MINIO_PASSWORD
+mysqlhost=binarydoc-db
+mysqlpass=$MYSQL_ROOT_PASSWORD
+mysqlport=$MYSQL_PORT
+mysqluser=root
+
+
 # Init MySQL login path
 #  - https://stackoverflow.com/questions/42232310/pass-password-to-mysql-config-editor-using-variable-in-shell
-host=binarydoc-db
-user=root
-pass=$MYSQL_ROOT_PASSWORD
 
 rm -f ~/.mylogin.cnf
 
 unbuffer expect -c "
-spawn mysql_config_editor set --login-path=binarydocjvm    --host=$host --user=$user --password
-expect -nocase \"Enter password:\" {send \"$pass\r\"; interact}
+spawn mysql_config_editor set --login-path=binarydocjvm    --host=$mysqlhost --user=$mysqluser --password
+expect -nocase \"Enter password:\" {send \"$mysqlpass\r\"; interact}
 "
 
 unbuffer expect -c "
-spawn mysql_config_editor set --login-path=binarydocjvmadm --host=$host --user=$user --password
-expect -nocase \"Enter password:\" {send \"$pass\r\"; interact}
+spawn mysql_config_editor set --login-path=binarydocjvmadm --host=$mysqlhost --user=$mysqluser --password
+expect -nocase \"Enter password:\" {send \"$mysqlpass\r\"; interact}
 "
 
 # Prepare DB
@@ -39,14 +43,20 @@ mysql --login-path=binarydocjvmadm --database="binarydocjvmadm"  <  /opt/fuiny/b
 
 # Update configuration
 echo "`date` Update configuration"
-sed -i "s/127.0.0.1/binarydoc-db/g" /opt/fuiny/binarydoc-parser/etc/binarydoc-jvm.properties
-sed -i "s/localhost/binarydoc-db/g" /opt/fuiny/binarydoc-parser/etc/binarydoc-jvm.properties
-sed -i "s/127.0.0.1/binarydoc-db/g" /var/www/php-library/config/dbconfig.php
+sed -i "s/127.0.0.1/binarydoc-db/g"     /opt/fuiny/binarydoc-parser/etc/binarydoc-jvm.properties
+sed -i "s/localhost/binarydoc-db/g"     /opt/fuiny/binarydoc-parser/etc/binarydoc-jvm.properties
+
+# Minio client
+sudo su www-data -s /bin/sh -c "mc alias set binarydoc http://minio:9000 minioadmin $miniopass"
+sudo su www-data -s /bin/sh -c "mc alias ls"
 
 echo ""
-echo "`date` Database is ready at localhost:$MYSQL_PORT "
-echo "`date` Database is availabe at http://127.0.0.1:$ADMINER_PORT/ "
-echo "`date` BinaryDoc will be availabe at http://127.0.0.1:$BINARYDOC_PORT/ "
+echo "`date` BinaryDoc is availabe at http://127.0.0.1:$BINARYDOC_PORT/ "
+echo ""
+echo "`date` Database Adminer is availabe at http://127.0.0.1:$ADMINER_PORT/ "
+echo "`date` Minio object storage server is availabe at http://127.0.0.1:$MINIO_PORT/ "
+echo "`date` Database is ready at localhost:$mysqlport "
+echo "`date` PlantUML server is availabe at http://127.0.0.1:$PLANTUML_PORT/ "
 echo ""
 
 echo "`date` Starting Apache2 HTTPD in foreground."

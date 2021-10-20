@@ -1,4 +1,4 @@
-# Based on current latest ubuntu LTS
+# Based on current latest Ubuntu LTS
 FROM ubuntu:20.04
 
 # No interactive
@@ -17,18 +17,26 @@ RUN apt update && apt -y upgrade && apt -y autoremove && apt install -y \
     fonts-arphic-ukai fonts-arphic-uming fonts-ipafont-mincho fonts-ipafont-gothic fonts-unfonts-core \
     graphviz librsvg2-bin inkscape libcanberra-gtk-module
 
+# Install Customized software
+RUN rm    -f                                                    /usr/bin/mc \
+ && wget  https://dl.min.io/client/mc/release/linux-amd64/mc -O /usr/bin/mc \
+ && chmod +x                                                    /usr/bin/mc \
+ && mkdir -p                 /var/www/.mc                                   \
+ && chown www-data:www-data  /var/www/.mc/
+
 # Install BinaryDoc Parser
-RUN mkdir -p /opt/fuiny/binarydoc-db     && cd /opt/fuiny/binarydoc-db     && rm -rf * && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-db.zip     && unzip binarydoc-db.zip
-RUN mkdir -p /opt/fuiny/binarydoc-parser && cd /opt/fuiny/binarydoc-parser && rm -rf * && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-parser.zip && unzip binarydoc-parser.zip
-RUN mkdir -p /opt/fuiny/app-to-parse
+RUN mkdir -p /opt/fuiny/binarydoc-db     && cd /opt/fuiny/binarydoc-db     && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-4.5-db.zip     && unzip binarydoc-4.5-db.zip      \
+ && mkdir -p /opt/fuiny/binarydoc-parser && cd /opt/fuiny/binarydoc-parser && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-4.5-parser.zip && unzip binarydoc-4.5-parser.zip  \
+ && mkdir -p /opt/fuiny/app-to-parse
 
 # Install BinaryDoc WebSite
-RUN cd /var/www && sudo rm -rf php-library/ && sudo rm -f website-php-library.zip         && sudo wget http://repos.fuiny.net/dist/binarydoc/website-php-library.zip         && sudo unzip -q website-php-library.zip
-RUN cd /var/www && sudo rm -rf html/        && sudo rm -f website-org.binarydoc.repos.zip && sudo wget http://repos.fuiny.net/dist/binarydoc/website-org.binarydoc.www.zip   && sudo unzip -q website-org.binarydoc.www.zip  && sudo mv org.binarydoc.www html
-RUN chmod -R 777 /var/www/html/api/cache
+RUN cd /var/www && sudo rm -rf html/         && sudo wget http://repos.fuiny.net/dist/binarydoc/binarydoc-4.5-web_org.binarydoc.www.zip && sudo unzip -q binarydoc-4.5-web_org.binarydoc.www.zip && sudo mv org.binarydoc.www html  \
+ && cd /var/www && sudo rm -rf php-library/  && sudo wget http://repos.fuiny.net/dist/binarydoc/binarydoc-4.5-web_php-library.zip       && sudo unzip -q binarydoc-4.5-web_php-library.zip \
+ && truncate -s 0  /var/www/php-library/ads/amazon-banners.php                           \
+ && truncate -s 0  /var/www/php-library/ads/google-adsense-responsive-text-display.php
 
 # Setup Web Server
-RUN a2enmod cgi cgid expires info proxy_http ssl
+RUN  a2enmod cgi cgid expires info proxy_http ssl
 COPY etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY etc/php/apache2/conf.d/fuiny-php.ini         /etc/php/7.4/apache2/conf.d/
 COPY var/www/html/apc.php                         /var/www/html/
@@ -37,3 +45,4 @@ COPY docker-entrypoint.sh                         /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["apache2"]
+
