@@ -12,7 +12,7 @@ RUN apt update && apt -y upgrade && apt -y autoremove && apt install -y \
     apache2 apachetop \
     memcached \
     php libapache2-mod-php php-cli php-cgi php-mbstring php-mysql php-intl php-zip php-bcmath php-apcu php-memcached \
-    default-jdk maven plantuml \
+    openjdk-17-jdk maven plantuml \
     fonts-freefont-otf fonts-freefont-ttf ttf-aenigma ttf-summersby \
     fonts-arphic-ukai fonts-arphic-uming fonts-ipafont-mincho fonts-ipafont-gothic fonts-unfonts-core \
     graphviz librsvg2-bin inkscape libcanberra-gtk-module
@@ -25,8 +25,8 @@ RUN rm    -f                                                    /usr/bin/mc \
  && chown www-data:www-data  /var/www/.mc/
 
 # Install BinaryDoc Parser
-RUN mkdir -p /opt/fuiny/binarydoc-db     && cd /opt/fuiny/binarydoc-db     && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-4.5-db.zip     && unzip binarydoc-4.5-db.zip      \
- && mkdir -p /opt/fuiny/binarydoc-parser && cd /opt/fuiny/binarydoc-parser && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-4.5-parser.zip && unzip binarydoc-4.5-parser.zip  \
+RUN mkdir -p /opt/fuiny/binarydoc-db     && cd /opt/fuiny/binarydoc-db     && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-4.5.1-db.zip     && unzip binarydoc-4.5.1-db.zip      \
+ && mkdir -p /opt/fuiny/binarydoc-parser && cd /opt/fuiny/binarydoc-parser && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-4.5.1-parser.zip && unzip binarydoc-4.5.1-parser.zip  \
  && mkdir -p /opt/fuiny/app-to-parse
 
 # Install BinaryDoc WebSite
