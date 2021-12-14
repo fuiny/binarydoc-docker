@@ -1,13 +1,9 @@
 #!/bin/sh
 #
-# Script to re-build the docker image in local
-#
 
+echo "Re-build the docker image"
 
-# Clean up
 ./cleanup.sh
-
-# Build
 ./build.sh
 
 # Start up
