@@ -25,8 +25,8 @@ RUN rm    -f                                                    /usr/bin/mc \
  && chown www-data:www-data  /var/www/.mc/
 
 # Install BinaryDoc Parser
-RUN mkdir -p /opt/fuiny/binarydoc-db     && cd /opt/fuiny/binarydoc-db     && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-4.5.1-db.zip     && unzip binarydoc-4.5.1-db.zip      \
- && mkdir -p /opt/fuiny/binarydoc-parser && cd /opt/fuiny/binarydoc-parser && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-4.5.2-parser.zip && unzip binarydoc-4.5.2-parser.zip  \
+RUN mkdir -p /opt/fuiny/binarydoc-db     && cd /opt/fuiny/binarydoc-db     && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-4.5.1-db.zip       && unzip binarydoc-4.5.1-db.zip        \
+ && mkdir -p /opt/fuiny/binarydoc-parser && cd /opt/fuiny/binarydoc-parser && wget http://repos.fuiny.net/dist/binarydoc/binarydoc-4.5.2.1-parser.zip && unzip binarydoc-4.5.2.1-parser.zip  \
  && mkdir -p /opt/fuiny/app-to-parse
 
 # Install BinaryDoc WebSite
