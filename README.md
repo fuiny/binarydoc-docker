@@ -71,6 +71,10 @@ Customize the config files
   - Change `innodb_buffer_pool_size` based on avabile RAM hardware and the size of application to be parsed
   - Change `innodb_buffer_pool_instances` based on parallel workloads
 
+If running Docker on Windows
+- If running on other system, ignore this step
+- Change the file `etc/mysql/conf.d/mysql.cnf` permission as read only, or else the mysql file will not load it
+
 Start the Docker Instances
 - `docker-compose up -d`
 
